@@ -1,8 +1,8 @@
-﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using MediatR;
 using neredekalCaseStudy.Application.Features.Hotels.Commands.Create;
+using neredekalCaseStudy.Application.Interfaces;
 using neredekalCaseStudy.Domain.Entities;
-using neredekalCaseStudy.Persistance.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,36 +17,20 @@ namespace neredekalCaseStudy.Application.Features.Hotels.Queries.GetById
 
         public class GetByIdHotelQueryHandler:IRequestHandler<GetByIdHotelQuery,GetByIdHotelQueryResponse>
         {
-            private readonly AppDbContext _context;
+            private readonly IMapper _mapper;
+            private readonly IHotelRepository _hotelRepository;
 
-            public GetByIdHotelQueryHandler(AppDbContext context)
+            public GetByIdHotelQueryHandler(IMapper mapper, IHotelRepository hotelRepository)
             {
-                _context = context;
+                _mapper = mapper;
+                _hotelRepository = hotelRepository;
             }
 
             public async Task<GetByIdHotelQueryResponse> Handle(GetByIdHotelQuery request,CancellationToken cancellationToken)
             {
-                var hotel = await _context.Hotels
-                    .Include(h => h.ContactInformations)
-                    .FirstOrDefaultAsync(h => h.Id == request.Id, cancellationToken);
-
-                if(hotel == null)
-                {
-                    throw new DirectoryNotFoundException($"Hotel with Id {request.Id} not found");
-                }
-
-                return new GetByIdHotelQueryResponse
-                {
-                    CompanyName = hotel.CompanyName,
-                    ManagerFirstName = hotel.ManagerFirstName,
-                    ManagerLastName = hotel.ManagerLastName,
-                    ContactInformations = hotel.ContactInformations.Select(i => new ContactInformationDto
-                    {
-                        InfoContent = i.InfoContent,
-                        InfoType = i.InfoType,
-                    }).ToList()
-
-                };
+                Hotel? hotel = await _hotelRepository.GetByIdAsync(request.Id);
+                GetByIdHotelQueryResponse response = _mapper.Map<GetByIdHotelQueryResponse>(hotel);
+                return response;
             }
         }
 

@@ -8,13 +8,19 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\neredekalCaseStudy.Application\neredekalCaseStudy.Application.csproj" />
     <ProjectReference Include="..\neredekalCaseStudy.Persistance\neredekalCaseStudy.Persistance.csproj" />
+    <ProjectReference Include="..\neredekalCaseStudy.Persistance\neredekalCaseStudy.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

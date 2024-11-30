@@ -12,6 +12,5 @@ namespace neredekalCaseStudy.Application.Features.Hotels.Commands.Create
         public string CompanyName { get; set; }
         public string ManagerFirstName { get; set; }
         public string ManagerLastName { get; set; }
-        public List<ContactInformationDto> ContactInformations { get; set; }
     }
 }

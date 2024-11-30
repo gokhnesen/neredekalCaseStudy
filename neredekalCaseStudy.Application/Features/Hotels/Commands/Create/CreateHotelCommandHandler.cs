@@ -1,6 +1,7 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
+using neredekalCaseStudy.Application.Interfaces;
 using neredekalCaseStudy.Domain.Entities;
-using neredekalCaseStudy.Persistance.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,36 +12,26 @@ namespace neredekalCaseStudy.Application.Features.Hotels.Commands.Create
 {
     public class CreateHotelCommandHandler : IRequestHandler<CreateHotelCommand,CreateHotelResponse>
     {
-        private readonly AppDbContext _context;
+        private readonly IHotelRepository _hotelRepository;
+        private readonly IMapper _mapper;
 
-        public CreateHotelCommandHandler(AppDbContext context)
+        public CreateHotelCommandHandler(IHotelRepository hotelRepository,IMapper mapper)
         {
-            _context = context;
+            _hotelRepository = hotelRepository;
+            _mapper = mapper;
         }
 
         public async Task<CreateHotelResponse> Handle(CreateHotelCommand request, CancellationToken cancellationToken)
         {
-            var hotel = new Hotel
-            {
-                Id = Guid.NewGuid(),
-                CompanyName = request.CompanyName,
-                ManagerFirstName = request.ManagerFirstName,
-                ManagerLastName = request.ManagerLastName,
-                ContactInformations = request.ContactInformations.Select(i => new ContactInformation
-                {
-                    Id = Guid.NewGuid(),
-                    InfoType = i.InfoType,
-                    InfoContent = i.InfoContent,
-                }).ToList()
-            };
+            Hotel hotel = _mapper.Map<Hotel>(request);
+            hotel.Id = Guid.NewGuid();
+            hotel.ManagerFirstName = request.ManagerFirstName;
+            hotel.ManagerLastName = request.ManagerLastName;
+            hotel.CompanyName = request.CompanyName;
+            await _hotelRepository.AddAsync(hotel);
 
-            _context.Hotels.AddAsync(hotel);
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return new CreateHotelResponse
-            {
-                Id = hotel.Id
-            };
+            CreateHotelResponse createHotelResponse = _mapper.Map<CreateHotelResponse>(hotel);
+            return createHotelResponse;
         }
     }
 }

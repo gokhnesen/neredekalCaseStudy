@@ -3,9 +3,15 @@
     public class ContactInformation
     {
         public Guid Id { get; set; }
-        public string InfoType { get; set; } //Phone,Email,Location
-        public string InfoContent { get; set; }
-        public Guid HotelId { get; set; }
-        public Hotel Hotel { get; set; }
+
+        public ContactType Type { get; set; }
+        public string Content { get; set; }
+    }
+
+    public enum ContactType
+    {
+        PhoneNumber,
+        Email,
+        Location
     }
 }

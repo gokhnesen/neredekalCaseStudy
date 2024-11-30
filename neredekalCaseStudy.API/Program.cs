@@ -1,7 +1,9 @@
 
 
 using Microsoft.EntityFrameworkCore;
-using neredekalCaseStudy.Persistance.Context;
+using neredekalCaseStudy.Application;
+using neredekalCaseStudy.Persistance;
+using System.Reflection;
 
 namespace neredekalCaseStudy.API
 {
@@ -11,8 +13,10 @@ namespace neredekalCaseStudy.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddDbContext<AppDbContext>(options =>
-            options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+            builder.Services.AddApplicationServices();
+            builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
