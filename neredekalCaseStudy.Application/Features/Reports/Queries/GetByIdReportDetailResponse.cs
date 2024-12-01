@@ -4,20 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace neredekalCaseStudy.Domain.Entities
+namespace neredekalCaseStudy.Application.Features.Reports.Queries
 {
-    public class Report
+    public class GetByIdReportDetailResponse
     {
-        public Guid Id { get; set; }
+        public Guid ReportId { get; set; }
         public DateTime RequestedAt { get; set; }
-        public ReportStatus Status { get; set; }
+        public string Status { get; set; }
         public string Location { get; set; }
         public int HotelCount { get; set; }
         public int PhoneNumberCount { get; set; }
-    }
-    public enum ReportStatus
-    {
-        InProgress,
-        Completed
     }
 }

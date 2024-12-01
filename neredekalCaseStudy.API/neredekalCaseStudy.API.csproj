@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\neredekalCaseStudy.Application\neredekalCaseStudy.Application.csproj" />
+    <ProjectReference Include="..\neredekalCaseStudy.Infrastructure\neredekalCaseStudy.Infrastructure.csproj" />
     <ProjectReference Include="..\neredekalCaseStudy.Persistance\neredekalCaseStudy.Persistance.csproj" />
     <ProjectReference Include="..\neredekalCaseStudy.Persistance\neredekalCaseStudy.Persistence.csproj" />
   </ItemGroup>

@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using neredekalCaseStudy.Application.Interfaces;
 using neredekalCaseStudy.Persistance.Context;
 using neredekalCaseStudy.Persistance.Repositories;
+using neredekalCaseStudy.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace neredekalCaseStudy.Persistance
         {
             services.AddDbContext<AppDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IHotelRepository, HotelRepository>();
-
+            services.AddScoped<IReportRepository, ReportRepository>();
             return services;
         }
     }

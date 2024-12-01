@@ -1,7 +1,9 @@
 
 
+using HotelGuide.Infrastructure.MessageQueue;
 using Microsoft.EntityFrameworkCore;
 using neredekalCaseStudy.Application;
+using neredekalCaseStudy.Application.Interfaces;
 using neredekalCaseStudy.Persistance;
 using System.Reflection;
 
@@ -20,6 +22,7 @@ namespace neredekalCaseStudy.API
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddSingleton<IMessageQueuePublisher, RabbitMQPublisher>();
 
             var app = builder.Build();
 

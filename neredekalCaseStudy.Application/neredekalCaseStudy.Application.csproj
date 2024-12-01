@@ -15,4 +15,9 @@
     <ProjectReference Include="..\neredekalCaseStudy.Domain\neredekalCaseStudy.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Reports\Commands\Delete\" />
+    <Folder Include="Features\Reports\Commands\Update\" />
+  </ItemGroup>
+
 </Project>

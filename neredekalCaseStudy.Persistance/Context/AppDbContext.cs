@@ -11,6 +11,7 @@ namespace neredekalCaseStudy.Persistance.Context
     public class AppDbContext : DbContext
     {
         public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<Report> Reports { get; set; }
         public DbSet<ContactInformation> ContactInformations { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options ): base(options) { }
