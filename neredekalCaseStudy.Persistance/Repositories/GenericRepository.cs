@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using neredekalCaseStudy.Application.Interfaces;
+using neredekalCaseStudy.Domain.Entities;
 using neredekalCaseStudy.Persistance.Context;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,12 @@ namespace neredekalCaseStudy.Persistance.Repositories
             await _context.SaveChangesAsync();
             return entity;
         }
+        public async Task<TEntity> AddContactInfoAsync(TEntity entity)
+        {
+            _context.Entry(entity).State = EntityState.Added;
+            await _context.SaveChangesAsync();
+            return entity;
+        }
 
         public async Task DeleteAsync(TEntity entity)
         {
@@ -38,12 +45,12 @@ namespace neredekalCaseStudy.Persistance.Repositories
         }
 
 
-        public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<List<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
         {
             return await _context.Set<TEntity>().Where(predicate).ToListAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<List<TEntity>> GetAllAsync()
         {
             return await _context.Set<TEntity>().ToListAsync();
         }
@@ -59,5 +66,6 @@ namespace neredekalCaseStudy.Persistance.Repositories
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
+
     }
 }

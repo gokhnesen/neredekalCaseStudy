@@ -21,6 +21,7 @@ namespace neredekalCaseStudy.Persistance
             services.AddDbContext<AppDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IHotelRepository, HotelRepository>();
             services.AddScoped<IReportRepository, ReportRepository>();
+            services.AddScoped<IContactInformationRepository, ContactInformationRepository>();
             return services;
         }
     }

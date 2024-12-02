@@ -2,6 +2,7 @@
 using neredekalCaseStudy.Application.Features.Hotels.Commands.Create;
 using neredekalCaseStudy.Application.Features.Hotels.Commands.Delete;
 using neredekalCaseStudy.Application.Features.Hotels.Queries.GetById;
+using neredekalCaseStudy.Application.Features.Hotels.Queries.GetHotelManager;
 using neredekalCaseStudy.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,9 @@ namespace neredekalCaseStudy.Application.Features.Hotels.Profiles
             CreateMap<Hotel,DeleteHotelCommand>().ReverseMap();
             CreateMap<Hotel,DeleteHotelResponse>().ReverseMap();
 
+
+            
+            CreateMap<Hotel,GetHotelManagersQueryResponse>().ReverseMap();
             CreateMap<Hotel,GetByIdHotelQueryResponse>().ReverseMap();
         }
     }

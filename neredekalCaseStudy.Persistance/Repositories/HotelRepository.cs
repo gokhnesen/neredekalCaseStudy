@@ -12,11 +12,13 @@ namespace neredekalCaseStudy.Persistance.Repositories
 {
     public class HotelRepository : GenericRepository<Hotel>, IHotelRepository
     {
+
+        private readonly AppDbContext _context;
         public HotelRepository(AppDbContext context) : base(context)
         {
         }
 
-        public async Task<IEnumerable<Hotel>> GetHotelsByLocationAsync(string location)
+        public async Task<List<Hotel>> GetHotelsByLocationAsync(string location)
         {
             return await FindAsync(h =>
                 h.ContactInformations.Any(c =>

@@ -10,10 +10,11 @@ namespace neredekalCaseStudy.Application.Interfaces
     public interface IGenericRepository<TEntity> where TEntity : class
     {
         Task<TEntity> GetByIdAsync(Guid id);
-        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<List<TEntity>> GetAllAsync();
         Task<TEntity> AddAsync(TEntity entity);
+        Task<TEntity> AddContactInfoAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
         Task DeleteAsync(TEntity entity);
-        Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<List<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
     }
 }
