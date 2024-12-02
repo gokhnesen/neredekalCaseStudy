@@ -26,18 +26,19 @@ namespace neredekalCaseStudy.Persistance.Repositories
             return entity;
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(TEntity entity)
         {
-            var entity = await _context.Set<TEntity>().FindAsync(id);
-            if (entity != null)
+            if (entity == null)
             {
-                _context.Entry(entity).State = EntityState.Deleted;
-                await _context.SaveChangesAsync();
+                throw new ArgumentNullException(nameof(entity), "The entity to delete cannot be null.");
             }
+
+            _context.Set<TEntity>().Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
 
-        public async Task<IEnumerable<TEntity>> FindyAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
         {
             return await _context.Set<TEntity>().Where(predicate).ToListAsync();
         }
@@ -51,6 +52,7 @@ namespace neredekalCaseStudy.Persistance.Repositories
         {
             return await _context.Set<TEntity>().FindAsync(id);
         }
+
 
         public async Task UpdateAsync(TEntity entity)
         {

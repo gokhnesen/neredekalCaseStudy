@@ -13,7 +13,7 @@ namespace neredekalCaseStudy.Application.Interfaces
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity> AddAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
-        Task DeleteAsync(Guid Id);
-        Task<IEnumerable<TEntity>> FindyAsync(Expression<Func<TEntity, bool>> predicate);
+        Task DeleteAsync(TEntity entity);
+        Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
     }
 }

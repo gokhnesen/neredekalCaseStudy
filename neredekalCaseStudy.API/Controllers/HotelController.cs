@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using neredekalCaseStudy.Application.Features.Hotels.Commands.Create;
+using neredekalCaseStudy.Application.Features.Hotels.Commands.Delete;
 using neredekalCaseStudy.Application.Features.Hotels.Queries.GetById;
 
 namespace neredekalCaseStudy.API.Controllers
@@ -21,6 +22,13 @@ namespace neredekalCaseStudy.API.Controllers
         {
             GetByIdHotelQuery getByIdHotelQuery = new() { Id = id };
             GetByIdHotelQueryResponse response = await Mediator.Send(getByIdHotelQuery);
+            return Ok(response);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            DeleteHotelResponse response = await Mediator.Send(new DeleteHotelCommand { Id = id });
             return Ok(response);
         }
     }

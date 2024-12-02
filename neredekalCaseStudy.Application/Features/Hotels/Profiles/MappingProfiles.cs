@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using neredekalCaseStudy.Application.Features.Hotels.Commands.Create;
+using neredekalCaseStudy.Application.Features.Hotels.Commands.Delete;
 using neredekalCaseStudy.Application.Features.Hotels.Queries.GetById;
 using neredekalCaseStudy.Domain.Entities;
 using System;
@@ -17,6 +18,8 @@ namespace neredekalCaseStudy.Application.Features.Hotels.Profiles
             CreateMap<Hotel,CreateHotelCommand>().ReverseMap();
             CreateMap<Hotel, CreateHotelResponse>().ReverseMap();
 
+            CreateMap<Hotel,DeleteHotelCommand>().ReverseMap();
+            CreateMap<Hotel,DeleteHotelResponse>().ReverseMap();
 
             CreateMap<Hotel,GetByIdHotelQueryResponse>().ReverseMap();
         }

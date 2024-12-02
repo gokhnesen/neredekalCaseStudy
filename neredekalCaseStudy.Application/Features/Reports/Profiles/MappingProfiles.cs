@@ -17,6 +17,7 @@ namespace neredekalCaseStudy.Application.Features.Reports.Profiles
             CreateMap<Report, CreateReportCommand>().ReverseMap();
             CreateMap<Report, CreateReportResponse>().ReverseMap();
 
+            
 
             CreateMap<Report,GetByIdHotelQueryResponse>().ReverseMap();
         }

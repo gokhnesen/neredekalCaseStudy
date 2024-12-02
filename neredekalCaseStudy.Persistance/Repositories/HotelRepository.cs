@@ -18,7 +18,7 @@ namespace neredekalCaseStudy.Persistance.Repositories
 
         public async Task<IEnumerable<Hotel>> GetHotelsByLocationAsync(string location)
         {
-            return await FindyAsync(h =>
+            return await FindAsync(h =>
                 h.ContactInformations.Any(c =>
                     c.Type == ContactType.Location && c.Content == location)
             );
