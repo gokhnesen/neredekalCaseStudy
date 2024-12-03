@@ -24,7 +24,7 @@ namespace neredekalCaseStudy.Application.Features.Hotels.Profiles
 
 
             
-            CreateMap<Hotel,GetHotelManagersQueryResponse>().ReverseMap();
+            CreateMap<Hotel,GetListHotelManagersResponse>().ReverseMap();
             CreateMap<Hotel,GetByIdHotelQueryResponse>().ReverseMap();
         }
     }

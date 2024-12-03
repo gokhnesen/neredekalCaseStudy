@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace neredekalCaseStudy.Application.Features.Hotels.Queries.GetHotelManager
 {
-    public class GetHotelManagersQuery : IRequest<List<GetHotelManagersQueryResponse>>
+    public class GetListHotelManagersQuery : IRequest<List<GetListHotelManagersResponse>>
     {
         public Guid Id { get; set; }
 
-        public class GetHotelManagersQueryHandler : IRequestHandler<GetHotelManagersQuery, List<GetHotelManagersQueryResponse>>
+        public class GetHotelManagersQueryHandler : IRequestHandler<GetListHotelManagersQuery, List<GetListHotelManagersResponse>>
         {
             private readonly IHotelRepository _hotelRepository;
             private readonly IMapper _mapper;
@@ -25,11 +25,11 @@ namespace neredekalCaseStudy.Application.Features.Hotels.Queries.GetHotelManager
                 _mapper = mapper;
             }
 
-            public async Task<List<GetHotelManagersQueryResponse>> Handle(GetHotelManagersQuery request, CancellationToken cancellationToken)
+            public async Task<List<GetListHotelManagersResponse>> Handle(GetListHotelManagersQuery request, CancellationToken cancellationToken)
             {
                 List<Hotel> hotelManagers = await _hotelRepository.GetAllAsync();
 
-                List<GetHotelManagersQueryResponse> response = _mapper.Map<List<GetHotelManagersQueryResponse>>(hotelManagers);
+                List<GetListHotelManagersResponse> response = _mapper.Map<List<GetListHotelManagersResponse>>(hotelManagers);
 
                 return response;
             }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace neredekalCaseStudy.Application.Features.Hotels.Queries.GetHotelManager
 {
-    public class GetHotelManagersQueryResponse
+    public class GetListHotelManagersResponse
     {
         public Guid Id { get; set; }
         public string ManagerFirstName { get; set; }

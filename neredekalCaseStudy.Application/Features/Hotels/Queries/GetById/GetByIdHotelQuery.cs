@@ -28,9 +28,13 @@ namespace neredekalCaseStudy.Application.Features.Hotels.Queries.GetById
 
             public async Task<GetByIdHotelQueryResponse> Handle(GetByIdHotelQuery request,CancellationToken cancellationToken)
             {
-                Hotel? hotel = await _hotelRepository.GetByIdAsync(request.Id);
+                Hotel? hotel = await _hotelRepository.GetByIdWithDetailsAsync(request.Id);
+                if (hotel == null)
+                    throw new Exception("Hotel not found");
+
                 GetByIdHotelQueryResponse response = _mapper.Map<GetByIdHotelQueryResponse>(hotel);
                 return response;
+
             }
         }
 

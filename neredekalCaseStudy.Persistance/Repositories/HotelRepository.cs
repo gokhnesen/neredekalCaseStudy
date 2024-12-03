@@ -16,6 +16,7 @@ namespace neredekalCaseStudy.Persistance.Repositories
         private readonly AppDbContext _context;
         public HotelRepository(AppDbContext context) : base(context)
         {
+            _context = context;
         }
 
         public async Task<List<Hotel>> GetHotelsByLocationAsync(string location)
@@ -30,5 +31,13 @@ namespace neredekalCaseStudy.Persistance.Repositories
         {
             return (await GetHotelsByLocationAsync(location)).Count();
         }
+
+        public async Task<Hotel?> GetByIdWithDetailsAsync(Guid id)
+        {
+            return await _context.Set<Hotel>()
+                .Include(h => h.ContactInformations)
+                .FirstOrDefaultAsync(h => h.Id == id);
+        }
+
     }
 }

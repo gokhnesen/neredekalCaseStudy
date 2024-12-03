@@ -25,8 +25,8 @@ namespace neredekalCaseStudy.API.Controllers
         [HttpGet("hotel-manager-list")]
         public async Task<IActionResult> GetList()
         {
-            var query = new GetHotelManagersQuery();
-            List<GetHotelManagersQueryResponse> response = await Mediator.Send(query);
+            var query = new GetListHotelManagersQuery();
+            List<GetListHotelManagersResponse> response = await Mediator.Send(query);
             return Ok(response);
         }
 
