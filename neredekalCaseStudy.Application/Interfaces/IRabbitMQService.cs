@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace neredekalCaseStudy.Application.Interfaces
 {
-    public interface IMessageQueuePublisher
+    public interface IRabbitMQService
     {
-        void Publish(string queueName, string message);
+        void SendMessage(object message,string queueName);
     }
 }

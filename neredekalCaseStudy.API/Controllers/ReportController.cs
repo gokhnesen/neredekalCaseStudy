@@ -1,7 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using neredekalCaseStudy.Application.Features.Hotels.Queries.GetById;
+using neredekalCaseStudy.Application.Features.Hotels.Queries.GetHotelManager;
 using neredekalCaseStudy.Application.Features.Reports.Commands.Create;
 using neredekalCaseStudy.Application.Features.Reports.Queries;
+using neredekalCaseStudy.Application.Features.Reports.Queries.GetById;
+using neredekalCaseStudy.Application.Features.Reports.Queries.GetList;
+using neredekalCaseStudy.Application.Interfaces;
+using System.Runtime.CompilerServices;
 
 namespace neredekalCaseStudy.API.Controllers
 {
@@ -9,18 +15,26 @@ namespace neredekalCaseStudy.API.Controllers
     [ApiController]
     public class ReportController : BaseController
     {
-        [HttpPost]
-        public async Task<IActionResult> CreateReport([FromBody] CreateReportCommand createReportCommand)
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateReport([FromBody] CreateReportCommand command)
         {
-            CreateReportResponse response = await Mediator.Send(createReportCommand);
+            var response = await Mediator.Send(command);
             return Ok(response);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("list")]
+        public async Task<IActionResult> GetReports()
+        {
+            var query = new GetListReportsQuery();
+            List<GetListReportsResponse> response = await Mediator.Send(query);
+            return Ok(response);
+        }
+
+        [HttpGet("details/{id}")]
         public async Task<IActionResult> GetReportDetails(Guid id)
         {
-            GetByIdReportDetailQuery getByIdReportDetailQuery = new() { Id = id };
-            GetByIdReportDetailResponse response = await Mediator.Send(getByIdReportDetailQuery);
+            var query = new GetByIdReportDetailQuery { Id = id };
+            var response = await Mediator.Send(query);
             return Ok(response);
         }
     }

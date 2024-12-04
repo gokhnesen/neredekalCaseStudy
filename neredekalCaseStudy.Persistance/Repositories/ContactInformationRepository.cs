@@ -1,4 +1,5 @@
-﻿using neredekalCaseStudy.Application.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using neredekalCaseStudy.Application.Interfaces;
 using neredekalCaseStudy.Domain.Entities;
 using neredekalCaseStudy.Persistance.Context;
 using neredekalCaseStudy.Persistance.Repositories;
@@ -12,9 +13,17 @@ namespace neredekalCaseStudy.Persistence.Repositories
 {
     public class ContactInformationRepository : GenericRepository<ContactInformation>, IContactInformationRepository
     {
+        private readonly AppDbContext _context;
         public ContactInformationRepository(AppDbContext context) : base(context)
         {
+            _context = context;
+        }
 
+        public async Task<IEnumerable<ContactInformation>> GetPhoneNumbersByLocationAsync(string location)
+        {
+            return await _context.ContactInformations
+                .Where(c => c.Type == ContactType.PhoneNumber && c.Content.Contains(location))
+                .ToListAsync();
         }
     }
 }

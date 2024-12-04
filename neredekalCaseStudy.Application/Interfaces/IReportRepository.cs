@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace neredekalCaseStudy.Application.Interfaces
 {
-    public interface IReportRepository : IGenericRepository<Report>
+    public interface IReportRepository :IGenericRepository<Report>
     {
+        Task<int> GetHotelCountByLocationAsync(string location);
 
+        Task<int> GetPhoneCountByLocationAsync(string location);
     }
 }

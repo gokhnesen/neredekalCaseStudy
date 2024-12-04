@@ -19,12 +19,11 @@ namespace neredekalCaseStudy.Persistance.Repositories
             _context = context;
         }
 
-        public async Task<List<Hotel>> GetHotelsByLocationAsync(string location)
+        public async Task<IEnumerable<Hotel>> GetHotelsByLocationAsync(string location)
         {
-            return await FindAsync(h =>
-                h.ContactInformations.Any(c =>
-                    c.Type == ContactType.Location && c.Content == location)
-            );
+            return await _context.Hotels
+                .Where(h => h.ContactInformations.Any(c => c.Type == ContactType.Location && c.Content == location))
+                .ToListAsync();
         }
 
         public async Task<int> GetHotelCountByLocationAsync(string location)

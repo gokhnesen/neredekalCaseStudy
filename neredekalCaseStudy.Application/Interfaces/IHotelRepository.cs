@@ -9,8 +9,7 @@ namespace neredekalCaseStudy.Application.Interfaces
 {
     public interface IHotelRepository : IGenericRepository<Hotel>
     {
-        Task<List<Hotel>> GetHotelsByLocationAsync(string location);
-        Task<int> GetHotelCountByLocationAsync(string location);
+        Task<IEnumerable<Hotel>> GetHotelsByLocationAsync(string location);
         Task<Hotel?> GetByIdWithDetailsAsync(Guid id);
     }
 }

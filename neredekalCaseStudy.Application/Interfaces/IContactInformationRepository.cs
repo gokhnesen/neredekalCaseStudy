@@ -9,6 +9,8 @@ namespace neredekalCaseStudy.Application.Interfaces
 {
     public interface IContactInformationRepository : IGenericRepository<ContactInformation>
     {
+        Task<IEnumerable<ContactInformation>> GetPhoneNumbersByLocationAsync(string location);
+
 
     }
 }

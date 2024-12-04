@@ -3,40 +3,70 @@ using MediatR;
 using neredekalCaseStudy.Application.Interfaces;
 using neredekalCaseStudy.Domain.Entities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace neredekalCaseStudy.Application.Features.Reports.Commands.Create
 {
-    public class CreateReportCommandHandler : IRequestHandler<CreateReportCommand,CreateReportResponse>
+    public class CreateReportCommandHandler : IRequestHandler<CreateReportCommand, CreateReportResponse>
     {
         private readonly IReportRepository _reportRepository;
+        private readonly IHotelRepository _hotelRepository;
+        private readonly IContactInformationRepository _contactInformationRepository;
         private readonly IMapper _mapper;
-        private readonly IMessageQueuePublisher _queuePublisher;
 
-        public CreateReportCommandHandler(IReportRepository reportRepository, IMapper mapper,IMessageQueuePublisher queuePublisher)
+        public CreateReportCommandHandler(IReportRepository reportRepository, IHotelRepository hotelRepository,
+            IContactInformationRepository contactInformationRepository, IMapper mapper)
         {
             _reportRepository = reportRepository;
+            _hotelRepository = hotelRepository;
+            _contactInformationRepository = contactInformationRepository;
             _mapper = mapper;
-            _queuePublisher = queuePublisher;
         }
 
-        public async Task<CreateReportResponse>? Handle(CreateReportCommand request,CancellationToken cancellationToken)
+        public async Task<CreateReportResponse> Handle(CreateReportCommand request, CancellationToken cancellationToken)
         {
-            Report report = _mapper.Map<Report>(request);
-            report.Id = Guid.NewGuid();
-            report.RequestedAt = DateTime.UtcNow;
-            report.Status = ReportStatus.InProgress;
-            report.Location = request.Location;
+            var report = new Report
+            {
+                Id = Guid.NewGuid(),
+                Location = request.Location,
+                RequestedDate = DateTime.UtcNow,
+                Status = ReportStatus.InProgress,
+            };
+
+            var hotels = await _hotelRepository.GetHotelsByLocationAsync(request.Location);
+            var totalHotels = hotels.Count();
+
+            int totalPhoneNumbers = 0;
+
+            foreach (var hotel in hotels)
+            {
+                if (hotel.ContactInformations != null && hotel.ContactInformations.Any())
+                {
+                    var locationContact = hotel.ContactInformations
+                        .FirstOrDefault(c => c.Type == ContactType.Location && c.Content.Contains(request.Location));
+
+                    if (locationContact != null)
+                    {
+                        var phoneNumbers = hotel.ContactInformations
+                            .Where(c => c.Type == ContactType.PhoneNumber && !string.IsNullOrWhiteSpace(c.Content)) 
+                            .ToList();
+
+                        totalPhoneNumbers += phoneNumbers.Count;
+                    }
+                }
+            }
+
+            report.TotalHotels = totalHotels;
+            report.TotalPhoneNumbers = totalPhoneNumbers;
 
             await _reportRepository.AddAsync(report);
-            _queuePublisher.Publish("report_queue", report.Id.ToString());
 
-
-            CreateReportResponse createReportResponse = _mapper.Map<CreateReportResponse>(report);
-            return createReportResponse;
+            var response = _mapper.Map<CreateReportResponse>(report);
+            return response;
         }
+
+
     }
 }

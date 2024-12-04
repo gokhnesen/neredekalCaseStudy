@@ -1,10 +1,11 @@
+﻿
 
-
-using HotelGuide.Infrastructure.MessageQueue;
 using Microsoft.EntityFrameworkCore;
 using neredekalCaseStudy.Application;
 using neredekalCaseStudy.Application.Interfaces;
+using neredekalCaseStudy.Infrastructure.Messaging;
 using neredekalCaseStudy.Persistance;
+using RabbitMQ.Client;
 using System.Reflection;
 
 namespace neredekalCaseStudy.API
@@ -19,10 +20,13 @@ namespace neredekalCaseStudy.API
 
             builder.Services.AddApplicationServices();
             builder.Services.AddPersistenceServices(builder.Configuration);
+            var rabbitMqHostName = builder.Configuration["RabbitMQ:HostName"];
+            builder.Services.AddScoped<IRabbitMQService>(sp =>
+                new RabbitMQService(rabbitMqHostName));
+
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddSingleton<IMessageQueuePublisher, RabbitMQPublisher>();
 
             var app = builder.Build();
 
