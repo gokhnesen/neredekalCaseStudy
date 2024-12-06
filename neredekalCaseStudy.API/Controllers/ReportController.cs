@@ -1,13 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using neredekalCaseStudy.Application.Features.Hotels.Queries.GetById;
-using neredekalCaseStudy.Application.Features.Hotels.Queries.GetHotelManager;
+﻿using Microsoft.AspNetCore.Mvc;
 using neredekalCaseStudy.Application.Features.Reports.Commands.Create;
-using neredekalCaseStudy.Application.Features.Reports.Queries;
 using neredekalCaseStudy.Application.Features.Reports.Queries.GetById;
 using neredekalCaseStudy.Application.Features.Reports.Queries.GetList;
-using neredekalCaseStudy.Application.Interfaces;
-using System.Runtime.CompilerServices;
 
 namespace neredekalCaseStudy.API.Controllers
 {
@@ -31,10 +25,11 @@ namespace neredekalCaseStudy.API.Controllers
         }
 
         [HttpGet("details/{id}")]
-        public async Task<IActionResult> GetReportDetails(Guid id)
+        public async Task<IActionResult> GetReportDetails(Guid id, [FromQuery] bool downloadExcel = false)
         {
             var query = new GetByIdReportDetailQuery { Id = id };
             var response = await Mediator.Send(query);
+
             return Ok(response);
         }
     }

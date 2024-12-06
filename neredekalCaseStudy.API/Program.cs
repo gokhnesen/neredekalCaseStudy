@@ -1,12 +1,6 @@
-﻿
-
-using Microsoft.EntityFrameworkCore;
-using neredekalCaseStudy.Application;
-using neredekalCaseStudy.Application.Interfaces;
-using neredekalCaseStudy.Infrastructure.Messaging;
+﻿using neredekalCaseStudy.Application;
 using neredekalCaseStudy.Persistance;
-using RabbitMQ.Client;
-using System.Reflection;
+using neredekalCaseStudy.Infrastructure;
 
 namespace neredekalCaseStudy.API
 {
@@ -16,17 +10,18 @@ namespace neredekalCaseStudy.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-
+           
 
             builder.Services.AddApplicationServices();
             builder.Services.AddPersistenceServices(builder.Configuration);
-            var rabbitMqHostName = builder.Configuration["RabbitMQ:HostName"];
-            builder.Services.AddScoped<IRabbitMQService>(sp =>
-                new RabbitMQService(rabbitMqHostName));
+            builder.Services.AddInfrastructureServices(builder.Configuration);
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.EnableAnnotations(); // SwaggerOperation ve diğer açıklamalar için gerekli
+            });
 
             var app = builder.Build();
 

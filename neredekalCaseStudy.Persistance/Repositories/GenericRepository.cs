@@ -1,13 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using neredekalCaseStudy.Application.Interfaces;
-using neredekalCaseStudy.Domain.Entities;
 using neredekalCaseStudy.Persistance.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace neredekalCaseStudy.Persistance.Repositories
 {

@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace neredekalCaseStudy.Persistance.Migrations
+namespace neredekalCaseStudy.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,13 +26,30 @@ namespace neredekalCaseStudy.Persistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Reports",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    RequestedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    Location = table.Column<string>(type: "text", nullable: false),
+                    TotalHotels = table.Column<int>(type: "integer", nullable: false),
+                    TotalPhoneNumbers = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reports", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ContactInformations",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    InfoType = table.Column<string>(type: "text", nullable: false),
-                    InfoContent = table.Column<string>(type: "text", nullable: false),
-                    HotelId = table.Column<Guid>(type: "uuid", nullable: false)
+                    Type = table.Column<int>(type: "integer", nullable: false),
+                    Content = table.Column<string>(type: "text", nullable: false),
+                    HotelId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Location = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,6 +73,9 @@ namespace neredekalCaseStudy.Persistance.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ContactInformations");
+
+            migrationBuilder.DropTable(
+                name: "Reports");
 
             migrationBuilder.DropTable(
                 name: "Hotels");

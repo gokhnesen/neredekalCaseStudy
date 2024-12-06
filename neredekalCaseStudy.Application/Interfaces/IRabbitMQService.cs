@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace neredekalCaseStudy.Application.Interfaces
+﻿namespace neredekalCaseStudy.Application.Interfaces
 {
     public interface IRabbitMQService
     {
-        void SendMessage(object message,string queueName);
+        void SendMessage(object message, string queueName);
+        void ConsumeMessages<T>(string queueName , Action<T> onMessageReceived);
     }
 }

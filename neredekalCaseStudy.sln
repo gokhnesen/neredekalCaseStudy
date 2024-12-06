@@ -14,6 +14,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "neredekalCaseStudy.API", "neredekalCaseStudy.API\neredekalCaseStudy.API.csproj", "{5264ADBA-51C1-4F1A-9F83-E0185E38DAAB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CA22DDF3-C04B-4399-B9B0-19AE54ABB378}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{8D46918B-CA29-4AD8-9657-BAFE6C9AF8E9}"
 EndProject

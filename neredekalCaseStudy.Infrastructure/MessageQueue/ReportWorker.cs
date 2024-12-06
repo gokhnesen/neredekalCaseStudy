@@ -1,10 +1,9 @@
 ﻿using neredekalCaseStudy.Application.Interfaces;
+using neredekalCaseStudy.Domain.Entities;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using Newtonsoft.Json;
 using System.Text;
-using neredekalCaseStudy.Domain.Entities;
-using System.Threading.Tasks;
 
 public class ReportWorker
 {
@@ -21,7 +20,7 @@ public class ReportWorker
         using var connection = factory.CreateConnection();
         using var channel = connection.CreateModel();
 
-        channel.QueueDeclare(queue: "report_queue",
+        channel.QueueDeclare(queue: "reportQueue",
             durable: true,
             exclusive: false,
             autoDelete: false,

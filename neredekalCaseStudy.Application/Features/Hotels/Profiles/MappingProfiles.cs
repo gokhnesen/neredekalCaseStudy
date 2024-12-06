@@ -4,11 +4,6 @@ using neredekalCaseStudy.Application.Features.Hotels.Commands.Delete;
 using neredekalCaseStudy.Application.Features.Hotels.Queries.GetById;
 using neredekalCaseStudy.Application.Features.Hotels.Queries.GetHotelManager;
 using neredekalCaseStudy.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace neredekalCaseStudy.Application.Features.Hotels.Profiles
 {
@@ -16,16 +11,16 @@ namespace neredekalCaseStudy.Application.Features.Hotels.Profiles
     {
         public MappingProfiles()
         {
-            CreateMap<Hotel,CreateHotelCommand>().ReverseMap();
+            CreateMap<Hotel, CreateHotelCommand>().ReverseMap();
             CreateMap<Hotel, CreateHotelResponse>().ReverseMap();
 
-            CreateMap<Hotel,DeleteHotelCommand>().ReverseMap();
-            CreateMap<Hotel,DeleteHotelResponse>().ReverseMap();
+            CreateMap<Hotel, DeleteHotelCommand>().ReverseMap();
+            CreateMap<Hotel, DeleteHotelResponse>().ReverseMap();
 
 
-            
-            CreateMap<Hotel,GetListHotelManagersResponse>().ReverseMap();
-            CreateMap<Hotel,GetByIdHotelQueryResponse>().ReverseMap();
+
+            CreateMap<Hotel, GetListHotelManagersResponse>().ReverseMap();
+            CreateMap<Hotel, GetByIdHotelQueryResponse>().ReverseMap();
         }
     }
 }

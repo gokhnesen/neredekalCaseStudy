@@ -2,20 +2,15 @@
 using MediatR;
 using neredekalCaseStudy.Application.Interfaces;
 using neredekalCaseStudy.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace neredekalCaseStudy.Application.Features.Hotels.Commands.Create
 {
-    public class CreateHotelCommandHandler : IRequestHandler<CreateHotelCommand,CreateHotelResponse>
+    public class CreateHotelCommandHandler : IRequestHandler<CreateHotelCommand, CreateHotelResponse>
     {
         private readonly IHotelRepository _hotelRepository;
         private readonly IMapper _mapper;
 
-        public CreateHotelCommandHandler(IHotelRepository hotelRepository,IMapper mapper)
+        public CreateHotelCommandHandler(IHotelRepository hotelRepository, IMapper mapper)
         {
             _hotelRepository = hotelRepository;
             _mapper = mapper;

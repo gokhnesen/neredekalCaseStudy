@@ -1,12 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DocumentFormat.OpenXml.Drawing.ChartDrawing;
+using Microsoft.EntityFrameworkCore;
 using neredekalCaseStudy.Application.Interfaces;
 using neredekalCaseStudy.Domain.Entities;
 using neredekalCaseStudy.Persistance.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace neredekalCaseStudy.Persistance.Repositories
 {
@@ -21,8 +17,12 @@ namespace neredekalCaseStudy.Persistance.Repositories
 
         public async Task<IEnumerable<Hotel>> GetHotelsByLocationAsync(string location)
         {
-            return await _context.Hotels
-                .Where(h => h.ContactInformations.Any(c => c.Type == ContactType.Location && c.Content == location))
+            //var asd = from a in _context.Hotels
+            //          join b in _context.ContactInformations on a.Id equals b.HotelId
+            //          where 
+
+            return await _context.Hotels.Include(x => x.ContactInformations)
+                .Where(h => h.ContactInformations.Any(c => EF.Functions.Like(c.Location,$"%{location}"))) 
                 .ToListAsync();
         }
 

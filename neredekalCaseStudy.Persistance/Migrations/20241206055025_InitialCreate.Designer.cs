@@ -9,11 +9,11 @@ using neredekalCaseStudy.Persistance.Context;
 
 #nullable disable
 
-namespace neredekalCaseStudy.Persistance.Migrations
+namespace neredekalCaseStudy.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241203161318_NewReportsMig")]
-    partial class NewReportsMig
+    [Migration("20241206055025_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,10 @@ namespace neredekalCaseStudy.Persistance.Migrations
 
                     b.Property<Guid>("HotelId")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("Type")
                         .HasColumnType("integer");
@@ -100,11 +104,13 @@ namespace neredekalCaseStudy.Persistance.Migrations
 
             modelBuilder.Entity("neredekalCaseStudy.Domain.Entities.ContactInformation", b =>
                 {
-                    b.HasOne("neredekalCaseStudy.Domain.Entities.Hotel", null)
+                    b.HasOne("neredekalCaseStudy.Domain.Entities.Hotel", "Hotel")
                         .WithMany("ContactInformations")
                         .HasForeignKey("HotelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Hotel");
                 });
 
             modelBuilder.Entity("neredekalCaseStudy.Domain.Entities.Hotel", b =>

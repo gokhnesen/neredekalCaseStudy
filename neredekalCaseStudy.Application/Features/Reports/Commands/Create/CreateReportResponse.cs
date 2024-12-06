@@ -1,6 +1,4 @@
-﻿using neredekalCaseStudy.Domain.Entities;
-
-namespace neredekalCaseStudy.Application.Features.Reports.Commands.Create
+﻿namespace neredekalCaseStudy.Application.Features.Reports.Commands.Create
 {
     public class CreateReportResponse
     {

@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using neredekalCaseStudy.Application.Features.HotelContacts.Commands.Create;
 using neredekalCaseStudy.Application.Features.HotelContacts.Commands.Delete;
 using neredekalCaseStudy.Application.Features.Hotels.Commands.Create;
 using neredekalCaseStudy.Application.Features.Hotels.Commands.Delete;
 using neredekalCaseStudy.Application.Features.Hotels.Queries.GetById;
 using neredekalCaseStudy.Application.Features.Hotels.Queries.GetHotelManager;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace neredekalCaseStudy.API.Controllers
 {
@@ -37,7 +37,11 @@ namespace neredekalCaseStudy.API.Controllers
             return Ok(response);
         }
 
+
+
         [HttpPost("add-contact")]
+        [SwaggerOperation(Summary = "Add contact for a hotel (type: 0 = phoneNumber, 1 = email, 2 = streetLocation)",
+                          Description = "Use type=0 for phone numbers and type=1 for email addresses.")]
         public async Task<IActionResult> CreateHotelContactInfo([FromBody] CreateHotelContactCommand createHotelContactCommand)
         {
             CreateHotelContactResponse response = await Mediator.Send(createHotelContactCommand);
@@ -54,9 +58,9 @@ namespace neredekalCaseStudy.API.Controllers
             DeleteHotelResponse response = await Mediator.Send(new DeleteHotelCommand { Id = id });
             return Ok(response);
         }
-        
+
         [HttpDelete("delete-contact{id}")]
-        
+
         public async Task<IActionResult> DeleteContactInfo([FromRoute] Guid id)
         {
             DeleteHotelContactResponse response = await Mediator.Send(new DeleteHotelContactCommand { Id = id });

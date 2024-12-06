@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -14,13 +14,16 @@
     </PackageReference>
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.1" />
+    <PackageReference Include="Serilog" Version="4.1.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
+    <PackageReference Include="Serilog.Formatting.Elasticsearch" Version="10.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="7.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\neredekalCaseStudy.Application\neredekalCaseStudy.Application.csproj" />
     <ProjectReference Include="..\neredekalCaseStudy.Infrastructure\neredekalCaseStudy.Infrastructure.csproj" />
-    <ProjectReference Include="..\neredekalCaseStudy.Persistance\neredekalCaseStudy.Persistance.csproj" />
     <ProjectReference Include="..\neredekalCaseStudy.Persistance\neredekalCaseStudy.Persistence.csproj" />
   </ItemGroup>
 
