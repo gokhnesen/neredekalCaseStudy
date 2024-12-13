@@ -25,7 +25,7 @@ namespace neredekalCaseStudy.API.Controllers
         }
 
         [HttpGet("details/{id}")]
-        public async Task<IActionResult> GetReportDetails(Guid id, [FromQuery] bool downloadExcel = false)
+        public async Task<IActionResult> GetReportDetails(Guid id)
         {
             var query = new GetByIdReportDetailQuery { Id = id };
             var response = await Mediator.Send(query);
